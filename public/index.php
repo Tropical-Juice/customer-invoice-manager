@@ -18,4 +18,8 @@ require_once __DIR__.'/../settings.php';
 
 $app = new Cim($settings);
 
-$app->run();
+try {
+    $app->run();
+} catch (TodoException $e) {
+    die($e->getMessage());
+}

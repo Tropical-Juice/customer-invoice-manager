@@ -12,10 +12,10 @@
  */
 class Cim_Frontend_Service_Login extends Cim_Frontend_Service
 {
-    private function __construct()
+    public function __construct()
     {
         // @TODO (@sem): Set login page data in session storage. E.g. current URL for auto redirection.
-        Util::todo('xvilo', 'Set login page data in session storage. E.g. current URL for auto redirection.');
+        Util::todo('xvilo', 'create login from database and redirect.');
         return true;
     }
 }

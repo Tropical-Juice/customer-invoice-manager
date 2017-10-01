@@ -68,6 +68,8 @@ class Routes
             $this->routeData = $this->buildReturnData('Cim_Frontend_Page_Login');
         });
 
+        $this->generateServicesData();
+
         /**
          * 404 Route
          */
