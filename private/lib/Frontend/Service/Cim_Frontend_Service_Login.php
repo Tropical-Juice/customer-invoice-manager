@@ -12,10 +12,24 @@
  */
 class Cim_Frontend_Service_Login extends Cim_Frontend_Service
 {
-    public function __construct()
+    protected function pageData()
     {
-        // @TODO (@sem): Set login page data in session storage. E.g. current URL for auto redirection.
-        Util::todo('xvilo', 'create login from database and redirect.');
-        return true;
+        if (!$username = util::arrayGet($this->post, 'username', false)) {
+            throw new UserException('You need to enter a username');
+        }
+
+        if (!$password = util::arrayGet($this->post, 'password', false)) {
+            throw new UserException('You need to enter a password');
+        }
+
+        $userController = UserController::get();
+
+        if ($userId = $userController->checkLogin($username, $password)) {
+            $userController->setLoginSession($userId);
+
+            return ['redirect' => '/app'];
+        } else {
+            throw new UserException('Wrong credentials');
+        }
     }
 }

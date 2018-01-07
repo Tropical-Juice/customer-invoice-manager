@@ -90,8 +90,9 @@ class Settings
      * @param $arguments
      * @return mixed|null
      */
-    public function __call($name, $arguments) {
-        if(!isset($arguments[1])){
+    public function __call($name, $arguments)
+    {
+        if (!isset($arguments[1])) {
             $arguments[1] = null;
         }
 
@@ -109,8 +110,9 @@ class Settings
      * @param $arguments
      * @return mixed|null
      */
-    public static function __callStatic($name, $arguments) {
-        if(!isset($arguments[1])){
+    public static function __callStatic($name, $arguments)
+    {
+        if (!isset($arguments[1])) {
             $arguments[1] = null;
         }
 

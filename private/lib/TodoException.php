@@ -1,5 +1,5 @@
 <?php
 
-class TodoException extends Exception {
-
+class TodoException extends Exception
+{
 }

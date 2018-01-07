@@ -8,14 +8,36 @@
  */
 
 /**
- * Class Cim_Frontend_Page_ErrorPage
+ * Class Cim_Frontend_Service
  */
-class Cim_Frontend_Service
+class Cim_Frontend_Service extends Cim_Frontend
 {
-    private function __construct()
+    private $returnArray = [
+        'success' => true,
+        'reason' => '',
+        'element' => '',
+        'data' => [],
+        'errors' => [],
+    ];
+
+    /**
+     * Cim_Frontend_Service constructor.
+     *
+     * @param $requestData
+     */
+    public function __construct($requestData)
     {
-        // @TODO (@sem): Set login page data in session storage. E.g. current URL for auto redirection.
-        Util::todo('xvilo', 'Set login page data in session storage. E.g. current URL for auto redirection.');
-        return true;
+        // Get data from main
+        parent::__construct($requestData);
+
+        try {
+            $pageData = $this->pageData();
+            $this->returnArray['data'] = $pageData;
+        } catch (UserException $e) {
+            $this->returnArray['success'] = false;
+            $this->returnArray['reason'] = $e->getMessage();
+        }
+
+        die(json_encode($this->returnArray));
     }
 }

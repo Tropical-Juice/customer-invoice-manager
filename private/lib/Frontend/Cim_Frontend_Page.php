@@ -8,52 +8,28 @@
  */
 
 /**
- * Class Cim_Frontend_Page_ErrorPage
+ * Class Cim_Frontend_Page
  */
-class Cim_Frontend_Page
+class Cim_Frontend_Page extends Cim_Frontend
 {
     protected $templatePath   = null;
-    protected $post           = array();
-    protected $cookies        = array();
-    protected $_requiresLogin = false;
     private $templateFile   = null;
     private $templateDir;
 
     /**
-     * Cim_Frontend_Page_ErrorPage constructor.
+     * Cim_Frontend_Page constructor.
      *
      * @param $requestData
      */
     public function __construct($requestData)
     {
-        if ($this->shouldLogin() !== false) {
-            $this->setLoginPageData();
-            header('Location: '.  Settings::get('host') . Settings::get('domain') .'/login');
-            exit();
-        }
+        parent::__construct($requestData);
+
+        //die(var_dump(debug_backtrace()));
 
         $this->templateFile = $this->getTemplateFile();
         $this->templateDir = Settings::get('application-dir').'/private/templates/';
         $this->loadTemplate($requestData);
-
-
-        $this->cookies = is_array($_COOKIE) ? $_COOKIE : array(); //COOKIES
-        $this->post = is_array($_POST) ? $_POST : array(); //POST
-
-        return true;
-    }
-
-
-    /**
-     * Page data. Array of data used in twig.
-     *
-     * @return array
-     */
-    protected function pageData()
-    {
-        return [
-            'noPageDataGiven' => true,
-        ];
     }
 
     /**
@@ -64,7 +40,6 @@ class Cim_Frontend_Page
     final private function getTemplateFile()
     {
         if ($this->templatePath === null) {
-
             $className = get_class($this);
             $twigPath = str_replace("Cim_", "", $className);
             $twigPath = str_replace("_", "/", $twigPath);
@@ -111,20 +86,5 @@ class Cim_Frontend_Page
             'requestData' => $requestData,
             'pageData' => $pageData
         ];
-    }
-
-    /**
-     * Checks whether we need to login
-     * @return bool|string false if no need to login, the login page class otherwise
-     */
-    protected function shouldLogin()
-    {
-        return $this->_requiresLogin && is_null(Frontend_Sessions::get()->getCustomer()['login']) ? true : false;
-    }
-
-    private function setLoginPageData()
-    {
-        // @TODO (@sem): Set login page data in session storage. E.g. current URL for auto redirection.
-        return true;
     }
 }

@@ -1,0 +1,10 @@
+checks:
+    php:
+        code_rating: true
+        duplication: true
+filter:
+    paths: ["private/lib/*.php"]
+    excluded_paths:
+        - "vendor/"
+        - "private/config/"
+        - "private/tests/"

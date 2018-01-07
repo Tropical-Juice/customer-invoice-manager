@@ -12,6 +12,7 @@
         "mtdowling/cron-expression": "^1.2",
         "illuminate/pagination": "^5.4",
         "klein/klein": "^2.1",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+	"propel/propel": "~3.0@dev"
     }
 }

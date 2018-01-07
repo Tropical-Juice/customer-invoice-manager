@@ -32,9 +32,9 @@ class Frontend_Sessions
      */
     public function getCustomer()
     {
-        if(!isset($_COOKIE['cimu'])) {
+        if (!isset($_COOKIE['cimu'])) {
             return false;
-        }else{
+        } else {
             //TODO (@xvilo): Fix session storage from Redis
             Util::todo('xvilo', 'Fix session storage from Redis');
             return ['data here'];

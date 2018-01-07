@@ -1,3 +1,4 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xvilo/customer-invoice-manager/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xvilo/customer-invoice-manager/?branch=master)
 # Warning
 THIS PROJECT IS **WORK IN PROGRESS**. ANY DOCUMENTATION HERE IS SUBJECT TO CHANGE AND IS CURRENTLY NOT ALWAYS WORKING. PLEASE LOOK FOR A VERSION TAG. 
 

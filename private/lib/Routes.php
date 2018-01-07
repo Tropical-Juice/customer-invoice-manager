@@ -43,28 +43,28 @@ class Routes
         /**
          * Entry/Homepage Route
          */
-        $this->klein->respond('GET', '/', function () {
+        $this->klein->respond('/', function () {
             $this->routeData = $this->buildReturnData('Cim_Frontend_Page_Entry');
         });
 
         /**
          * Hello World Route
          */
-        $this->klein->respond('GET', '/hello-world', function () {
+        $this->klein->respond('/hello-world', function () {
             $this->routeData = $this->buildReturnData('Cim_Frontend_Page_HelloWorld');
         });
 
         /**
          * login-test
          */
-        $this->klein->respond('GET', '/login-test', function () {
+        $this->klein->respond('/login-test', function () {
             $this->routeData = $this->buildReturnData('Cim_Frontend_Page_LoginTest');
         });
 
         /**
          * login-test
          */
-        $this->klein->respond('GET', '/login', function () {
+        $this->klein->respond('/login', function () {
             $this->routeData = $this->buildReturnData('Cim_Frontend_Page_Login');
         });
 
@@ -72,10 +72,11 @@ class Routes
 
         /**
          * 404 Route
-         */
+*/
         $this->klein->onHttpError(function ($code, $router) {
             $returnData = [
                 'code' => $code,
+                'router' => $router,
             ];
             $this->routeData = $this->buildReturnData('Cim_Frontend_Page_ErrorPage', $returnData);
         });
@@ -88,7 +89,7 @@ class Routes
         /**
          * Entry/Homepage Route
          */
-        $this->klein->respond('GET', '/services/login', function () {
+        $this->klein->respond('/services/login', function () {
             $this->routeData = $this->buildReturnData('Cim_Frontend_Service_login');
         });
     }
