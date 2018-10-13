@@ -9,17 +9,47 @@
 
 class Frontend_Sessions
 {
+    /** @var Frontend_Sessions|null  */
     private static $_instance = null;
-    private $_predisInstance;
+    /** @var bool */
+    private static $_isClosed = false;
+    /** @var array */
+    private $sessionData;
 
     public function __construct()
     {
-        $this->_predisInstance = External_Object_Predis::get();
+        $this->sessionData = $_SESSION;
     }
 
-    public static function get()
+    public static function get($key, $default = false)
     {
-        if (self::$_instance === null) {
+        $sessions = self::getInstance();
+        Util::arrayGet($sessions->getSessionData(), $key, $default);
+    }
+
+    public static function store($key, $data)
+    {
+        if(self::$_isClosed)
+            return false;
+
+        $sessions = self::getInstance();
+        $sessions->storeSessionData($key, $data);
+    }
+
+    public static function closeSessions()
+    {
+        $sessions = self::getInstance();
+        $sessions->sessionSave();
+
+        self::$_isClosed = true;
+    }
+
+    /**
+     * @return Frontend_Sessions
+     */
+    private static function getInstance()
+    {
+        if(self::$_instance === null) {
             self::$_instance = new self();
         }
 
@@ -27,17 +57,24 @@ class Frontend_Sessions
     }
 
     /**
-     * @throws Exception;
-     * @return array|bool
+     * @return array
      */
-    public function getCustomer()
+    private function getSessionData()
     {
-        if (!isset($_COOKIE['cimu'])) {
-            return false;
-        } else {
-            //TODO (@xvilo): Fix session storage from Redis
-            Util::todo('xvilo', 'Fix session storage from Redis');
-            return ['data here'];
-        }
+        return $this->sessionData;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     */
+    private function storeSessionData($key, $value)
+    {
+        $this->sessionData[$key] = $value;
+    }
+
+    private function sessionSave()
+    {
+        $_SESSION = $this->sessionData;
     }
 }

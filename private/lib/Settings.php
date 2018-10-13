@@ -12,23 +12,18 @@
  */
 class Settings
 {
-    /**
-     * @var Array all settings from settings file.
-     */
+    /** @var array */
     private $settings;
-
-    /**
-     * @var Settings current instance when set as global.
-     */
-    private static $instance;
+    /** @var Settings|null */
+    private static $instance = null;
 
     /**
      * Settings constructor.
      * @param $settings array of settings. Key => Value pair
      */
-    public function __construct($settings)
+    public function __construct($settings = [])
     {
-        $this->settings = $settings;
+        $this->settings = Util::makeSureIsArray($settings);
     }
 
     /**
@@ -67,7 +62,7 @@ class Settings
      */
     public static function getStatic($key, $default = null)
     {
-        $instance = self::$instance;
+        $instance = self::getInstance();
         return $instance->getObject($key, $default);
     }
 
@@ -78,7 +73,10 @@ class Settings
      */
     public static function getInstance()
     {
-        return static::$instance;
+        if(self::$instance == null)
+            self::$instance = new self();
+
+        return self::$instance;
     }
 
     /**
