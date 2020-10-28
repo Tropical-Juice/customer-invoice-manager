@@ -29,8 +29,9 @@ class Frontend_Sessions
 
     public static function store($key, $data)
     {
-        if(self::$_isClosed)
+        if (self::$_isClosed) {
             return false;
+        }
 
         $sessions = self::getInstance();
         $sessions->storeSessionData($key, $data);
@@ -49,7 +50,7 @@ class Frontend_Sessions
      */
     private static function getInstance()
     {
-        if(self::$_instance === null) {
+        if (self::$_instance === null) {
             self::$_instance = new self();
         }
 
